@@ -5,6 +5,65 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vercel_ecommerce</title>
+    <!-- 1. Route all telemetry data directly into your Backend API server -->
+    <script>
+      window.BEHAVIORSHIFT_API_URL = "https://bshift-api.nslinfotech.com/api";
+    </script>
+
+    <!-- 2. Load the tracking engine logic from your Frontend server -->
+    <script src="https://bshift-staging.nslinfotech.com/sdk/behaviorShift.js"></script>
+
+    <!-- 3. Initialize tracking and start universal interceptor -->
+    <script>
+      window.addEventListener('load', () => {
+        
+        // Authenticate the connection for this domain
+        window.behaviorShift.init({
+          apiKey: 'your-production-key', // Ensure this matches your .env security if set
+          clientId: 'magic-cart',
+          debug: false
+        });
+
+        // ==========================================
+        // :brain: UNIVERSAL COMPONENT TRACKER
+        // ==========================================
+        // Listens for clicks on any element acting like a button site-wide
+        document.addEventListener('click', (e) => {
+          const target = e.target.closest('button, a, [role="button"], .btn, .glass');
+          
+          if (target) {
+            // Automatically determine what the user clicked based on visually rendered text
+            const buttonText = target.innerText?.trim() || target.getAttribute('aria-label') || target.value || 'Icon Button';
+            const buttonPath = window.location.pathname;
+            
+            // Dynamically map interaction types based on textual content
+            let eventType = 'ui_interaction'; 
+            const lowerText = buttonText.toLowerCase();
+
+            if (lowerText.includes('add to cart') || lowerText.includes('cart')) {
+              eventType = 'add_to_cart';
+            } else if (lowerText.includes('checkout')) {
+              eventType = 'initiate_checkout';
+            } else if (lowerText.includes('complete') || lowerText.includes('buy now') || lowerText.includes('placed')) {
+              eventType = 'order_placed';
+            } else if (lowerText.includes('view') || lowerText.includes('product')) {
+              eventType = 'view_item';
+            }
+
+            // Fire the event. Using the override above, this securely flies to bshift-api.nslinfotech.com!
+            window.behaviorShift.track(eventType, null, {
+              clientId: 'magic-cart',
+              action_button: buttonText,
+              element_type: target.tagName,
+              page_location: buttonPath
+            });
+            
+            console.log(`[BehaviorShift] Forwarding interaction to Custom Backend -> ${eventType}: ${buttonText}`);
+          }
+        });
+
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>
