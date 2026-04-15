@@ -6,35 +6,44 @@ export default function ProductCard({ product }) {
   const { addToCart } = useCart();
 
   return (
-    <div className="glass animate-fade-in" style={{ padding: '1rem', transition: 'var(--transition-smooth)' }}>
-      <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '12px' }}>
+    <div className="glass glass-hover animate-fade-in card-shine" style={{ padding: '1rem', transition: 'var(--transition-smooth)' }}>
+      <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '15px' }}>
         <img 
           src={product.image} 
           alt={product.name} 
-          style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px' }} 
+          style={{ width: '100%', height: '220px', objectFit: 'cover', transition: 'transform 0.5s ease' }} 
+          className="product-image"
         />
-        <div style={{ position: 'absolute', top: '10px', right: '10px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)', padding: '4px 8px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <Star size={14} color="gold" fill="gold" />
-          <span style={{ fontSize: '0.8rem', fontWeight: 'bold' }}>{product.rating}</span>
+        <div style={{ position: 'absolute', top: '12px', right: '12px', background: 'rgba(3, 7, 18, 0.6)', backdropFilter: 'blur(8px)', padding: '6px 12px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <Star size={14} color="var(--accent-secondary)" fill="var(--accent-secondary)" />
+          <span style={{ fontSize: '0.85rem', fontWeight: '800' }}>{product.rating}</span>
         </div>
       </div>
 
-      <div style={{ marginTop: '1rem' }}>
-        <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{product.name}</h3>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', height: '3rem', overflow: 'hidden', marginBottom: '1rem' }}>
+      <div style={{ marginTop: '1.2rem' }}>
+        <div style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 'bold', marginBottom: '0.4rem' }}>
+          {product.category}
+        </div>
+        <h3 style={{ fontSize: '1.3rem', marginBottom: '0.6rem' }}>{product.name}</h3>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', height: '3rem', overflow: 'hidden', marginBottom: '1.2rem' }}>
           {product.description}
         </p>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="gradient-text" style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>
-            ${product.price}
-          </span>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textDecoration: 'line-through' }}>
+              ${(product.price * 1.2).toFixed(0)}
+            </span>
+            <span className="gradient-text" style={{ fontSize: '1.5rem', fontWeight: '900' }}>
+              ${product.price}
+            </span>
+          </div>
           <button 
             onClick={() => addToCart(product)}
             className="btn-primary" 
-            style={{ padding: '0.6rem', borderRadius: '10px', display: 'flex', alignItems: 'center' }}
+            style={{ width: '44px', height: '44px', borderRadius: '12px', padding: 0 }}
           >
-            <ShoppingCart size={20} />
+            <ShoppingCart size={22} />
           </button>
         </div>
       </div>

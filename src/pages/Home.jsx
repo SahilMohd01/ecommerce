@@ -9,17 +9,22 @@ export default function Home() {
 
   return (
     <div className="container animate-fade-in">
-      {/* Hero Section */}
       <section style={{
         padding: '5rem 0',
-        minHeight: '80vh',
+        minHeight: '85vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        background: 'radial-gradient(circle at center, rgba(124, 58, 237, 0.1) 0%, transparent 70%)'
+        background: 'url("/home/nsl/.gemini/antigravity/brain/dbd88b5a-e87d-4b65-aed0-63aa9c7c0199/magic_cart_hero_bg_1775732082449.png") center/cover no-repeat',
+        position: 'relative',
+        borderRadius: '30px',
+        marginTop: '1rem',
+        boxShadow: '0 20px 50px rgba(0,0,0,0.5)'
       }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, var(--bg-color) 100%)', borderRadius: '30px' }}></div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
         <div className="glass" style={{
           padding: '0.4rem 1.2rem',
           borderRadius: '50px',
@@ -55,7 +60,8 @@ export default function Home() {
             View Plans
           </Link>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Features */}
       <section style={{

@@ -4,52 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vercel_ecommerce</title>
-    <!-- 1. Route all telemetry data directly into your Backend API server -->
+    <title>Magic Cart — Premium E-Commerce</title>
+    <meta name="description" content="Magic Cart — Step into the future of shopping with premium products." />
+
+    <!-- BehaviorShift SDK Configuration -->
     <script>
-      window.BEHAVIORSHIFT_API_URL = "https://bshift-api.nslinfotech.com/api";
+      // Point to local BehaviorShift API server (npm run dev:all starts it on port 3000)
+      window.BEHAVIORSHIFT_API_URL = "https://shift-savvy-choices-git-d-d045f6-mirna-salems-projects-fbd96804.vercel.app/api";
+      window.BEHAVIORSHIFT_CLIENT_ID = "magic-cart";
+      window.BEHAVIORSHIFT_API_KEY = "bs_magic_key";
     </script>
 
-    <!-- 2. Load the tracking engine logic from your Frontend server -->
-    <script src="https://bshift-staging.nslinfotech.com/sdk/behaviorShift.js"></script>
-
-    <!-- 3. Initialize tracking and start universal interceptor -->
-    <script>
-    window.addEventListener('load', () => {
-      // 1. Create a persistent Session ID if it doesn't exist
-      let sessId = localStorage.getItem('bs_sess_id');
-      if (!sessId) {
-        sessId = "sess_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('bs_sess_id', sessId);
-      }
-
-      // 2. Listen for all clicks
-      document.addEventListener('click', (e) => {
-        const target = e.target.closest('button, a, .btn, .glass');
-        if (target) {
-          const text = target.innerText?.trim() || "interaction";
-          
-          // :rocket: THIS IS THE PAYLOAD THE SERVER NEEDS
-          const data = {
-            eventType: text.toLowerCase().includes('cart') ? 'add_to_cart' : 'ui_click',
-            clientId: 'magic-cart',      // <--- Must be this exact string
-            sessionId: sessId,           // <--- Must be present
-            pagePath: window.location.pathname,
-            ts: Date.now(),
-            metadata: { button_label: text }
-          };
-
-          // :satellite_antenna: Send to your API
-          fetch("https://bshift-api.nslinfotech.com/api/telemetry", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          }).then(r => console.log("BehaviorShift Sent :white_check_mark:"))
-            .catch(err => console.error("BehaviorShift Failed :x:", err));
-        }
-      });
-    });
-  </script>
+    <!-- Load the comprehensive BehaviorShift tracking SDK -->
+    <script src="/behaviorshift-sdk.js" defer></script>
   </head>
   <body>
     <div id="root"></div>

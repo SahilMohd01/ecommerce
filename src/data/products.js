@@ -5,7 +5,7 @@ export const products = [
     price: 1299,
     category: "Electronics",
     rating: 4.8,
-    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=800",
+    image: "/home/nsl/.gemini/antigravity/brain/dbd88b5a-e87d-4b65-aed0-63aa9c7c0199/premium_laptop_nebula_1775732153356.png",
     description: "Experience interstellar performance with our latest flagship laptop, featuring 32GB RAM and an OLED Pro display."
   },
   {
@@ -14,7 +14,7 @@ export const products = [
     price: 349,
     category: "Electronics",
     rating: 4.9,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800",
+    image: "/home/nsl/.gemini/antigravity/brain/dbd88b5a-e87d-4b65-aed0-63aa9c7c0199/zenith_headphones_1775732204640.png",
     description: "Pure sonic bliss with active noise cancellation and 60 hours of battery life."
   },
   {
