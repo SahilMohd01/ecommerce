@@ -11,7 +11,7 @@
   'use strict';
 
   // ─── Configuration ───────────────────────────────────────────────
-  const API_URL = window.BEHAVIORSHIFT_API_URL || 'https://shift-savvy-choices-git-d-d045f6-mirna-salems-projects-fbd96804.vercel.app';
+  const API_URL = window.BEHAVIORSHIFT_API_URL || 'https://shift-savvy-choices-bxfaa0ww7-mirna-salems-projects-fbd96804.vercel.app/';
   const CLIENT_ID = window.BEHAVIORSHIFT_CLIENT_ID || 'magic-cart';
   const API_KEY = window.BEHAVIORSHIFT_API_KEY || '';
   const DEDUP_MS = 1000; // 1-second de-duplication window for same event types
@@ -96,7 +96,7 @@
 
     fetch(endpoint, {
       method: 'POST',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'x-api-key': API_KEY
       },
@@ -405,7 +405,7 @@
   // ═══════════════════════════════════════════════════════════════════
   let activeNudges = [];
   let evaluatedPersonas = [];
-  
+
   // Basic behavioral profiling algorithm
   function evaluatePersona() {
     // Determine persona based on standard paths browsed during session
@@ -418,7 +418,7 @@
       currentPersona = 'impulse_buyer';
       profile = 'high_sensitivity';
     }
-    
+
     return { persona: currentPersona, profile };
   }
 
@@ -426,19 +426,19 @@
     const endpoint = `${API_URL.replace(/\/$/, '')}/nudges?client_id=${CLIENT_ID}`;
     fetch(endpoint, {
       method: 'GET',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'x-api-key': API_KEY
       }
     })
-    .then(r => r.json())
-    .then(data => {
-      if (data.success && data.nudges && data.nudges.length > 0) {
-        activeNudges = data.nudges;
-        evaluateAndRenderNudges();
-      }
-    })
-    .catch(err => console.error('[BS-SDK] Failed to load Nudges', err));
+      .then(r => r.json())
+      .then(data => {
+        if (data.success && data.nudges && data.nudges.length > 0) {
+          activeNudges = data.nudges;
+          evaluateAndRenderNudges();
+        }
+      })
+      .catch(err => console.error('[BS-SDK] Failed to load Nudges', err));
   }
 
   function renderNudge(nudge, attributionSettings) {
@@ -447,7 +447,7 @@
 
     const overlay = document.createElement('div');
     overlay.id = `bs-nudge-${nudge.id}`;
-    
+
     // Minimalist Glassmorphism Styling
     overlay.style.cssText = `
       position: fixed;
@@ -512,7 +512,7 @@
       });
       overlay.remove();
     });
-    
+
     // Inject keyframes globally if not exists
     if (!document.getElementById('bs-style')) {
       const style = document.createElement('style');
@@ -525,7 +525,7 @@
   function evaluateAndRenderNudges() {
     const { persona, profile } = evaluatePersona();
     const path = window.location.pathname.toLowerCase();
-    
+
     // Trigger Nudges sequentially based on rules
     activeNudges.forEach(nudge => {
       // Basic rule matching: If trigger specifies event or just show on loaded paths
@@ -543,7 +543,7 @@
     setTimeout(fetchActiveNudges, 200);
   };
   window.addEventListener('popstate', () => setTimeout(fetchActiveNudges, 200));
-  
+
   // Initial Nudge Fetch
   setTimeout(fetchActiveNudges, 500);
 
