@@ -11,7 +11,7 @@
   'use strict';
 
   // ─── Configuration ───────────────────────────────────────────────
-  const API_URL = window.BEHAVIORSHIFT_API_URL || 'https://shift-savvy-choices-bxfaa0ww7-mirna-salems-projects-fbd96804.vercel.app/';
+  const API_URL = window.BEHAVIORSHIFT_API_URL || 'https://shift-savvy-choices-bxfaa0ww7-mirna-salems-projects-fbd96804.vercel.app';
   const CLIENT_ID = window.BEHAVIORSHIFT_CLIENT_ID || 'magic-cart';
   const API_KEY = window.BEHAVIORSHIFT_API_KEY || '';
   const DEDUP_MS = 1000; // 1-second de-duplication window for same event types
